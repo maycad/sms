@@ -1,16 +1,21 @@
 <?php
 namespace MayCad\SMS\Providers;
 
+use Twilio\Rest\Client;
 /**
  * 
  */
 class Twilio extends Provider
 {
-	private $_sid, $_token;
+	private $_sid, $_token, $_phone;
+
+	private $_client;
 
 	function __construct(array $data)
 	{
 		$this->hydrate($data);
+
+		$this->_client = new Client($this->getSid(), $this->getToken());
 	}
 
 	public function setSid(string $sid)
@@ -37,6 +42,18 @@ class Twilio extends Provider
 		return $this->_token;
 	}
 
+	public function setPhone(string $phone)
+	{
+		$this->_phone = $phone;
+
+		return $this;
+	}
+
+	public function getPhone()
+	{
+		return $this->_phone;
+	}
+
 	public function hydrate(array $data)
 	{
 		foreach ($data as $key => $value) {
@@ -52,11 +69,13 @@ class Twilio extends Provider
 
 	public function send(string $to, string $body)
 	{
-		# code...
+		return $this->_client->messages->create($to,
+			array('from' => $this->getPhone(), 'body' => $body)
+		);
 	}
 
 	public function call(string $to, array $params = array())
 	{
-		# code...
+		return $this->_client->calls->create($to, $this->getPhone(), $params);
 	}
 }

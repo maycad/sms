@@ -2,6 +2,7 @@
 namespace MayCad\SMS;
 
 use MayCad\SMS\Providers\EasySendSMS;
+use MayCad\SMS\Providers\SMSFactor;
 use MayCad\SMS\Providers\Twilio;
 use MayCad\SMS\Providers\Provider;
 
@@ -59,6 +60,11 @@ class SMS
 	public function withEasySendSMS(array $params)
 	{
 		return new EasySendSMS($params);
+	}
+
+	public function withSMSFactor(array $params)
+	{
+		return new SMSFactor($params);
 	}
 
 	public function withTwilio(array $params)

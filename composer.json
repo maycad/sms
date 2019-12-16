@@ -17,7 +17,9 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.5",
-        "guzzlehttp/guzzle": "~6.0"
+        "guzzlehttp/guzzle": "~6.0",
+        "twilio/sdk": "dev-master",
+        "smsfactor/smsfactor-php-sdk": "dev-master"
     },
     "require-dev": {},
     "autoload": {
